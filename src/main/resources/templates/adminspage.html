@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>UpdateTours</title>
+    <link rel="stylesheet" type=text/css href="/style/tours.css"/>
+    <link rel="shortcut icon"  href="/images/icon.png"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/style/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!--Font-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <h1>List of available tours</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Tour Id</th>
+            <th>Tour name</th>
+            <th>Tour price</th>
+            <th>Tour address</th>
+            <th>Tour date</th>
+            <th>Tour duration</th>
+            <th>Tour image's path</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tourL : ${tours}">
+            <td th:text="${tourL.tourid}"></td>
+            <td th:text="${tourL.tourname}"></td>
+            <td th:text="${tourL.price}"></td>
+            <td th:text="${tourL.address}"></td>
+            <td th:text="${tourL.tourdate}"></td>
+            <td th:text="${tourL.tourduration}"></td>
+            <td th:text="${tourL.image}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h1>ADD NEW TOUR</h1>
+        <div class="row">
+        <form class="col s12 update" th:action="@{/save}" method="POST" th:object="${tour}">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Tour id" type="number" name="address" required class="validate" th:field="*{tourid}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Address" type="text" name="address" required class="validate" th:field="*{address}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Price" type="text" name="price" required class="validate" th:field="*{price}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Tour name" type="text" name="tour_name" required class="validate" th:field="*{tourname}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Tour date" type="date" name="tourdate" required class="validate" th:field="*{tourdate}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Tour duration" type="text" name="tourduration" required class="validate" th:field="*{tourduration}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Path to the image (/images/photo.jpg)" type="text" name="image" required class="validate" th:field="*{image}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="submit" name="submit" class="center btn regbtn" value="save" >
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+        <h1>DELETE TOUR</h1>
+        <div class="row">
+            <form class="col s12 update" th:action="@{/delete}" method="POST">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Tour Id" type="text" name="tourid" required class="validate" th:object="${tourid}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="submit" name="submit" class="center btn regbtn" value="delete" >
+                    </div>
+                </div>
+            </form>
+    </div>
+
+<!--    <h1>UPDATE TOUR</h1>-->
+<!--    <div class="row">-->
+<!--        <form class="col s12 update" th:action="@{'/update/'+${tourid}}" method="POST">-->
+<!--            <div class="row">-->
+<!--                <div class="input-field col s12">-->
+<!--                    <input placeholder="Tour Id" type="text" name="tourid" required class="validate" th:object="${tourid}">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="input-field col s12">-->
+<!--                    <input type="submit" name="submit" class="center btn regbtn" value="UPDATE" >-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+</div>
+
+<script type="text/javascript" src="/js/tours.js"></script>
+<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>
