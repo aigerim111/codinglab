@@ -11,23 +11,84 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
-    @Autowired
+   @Autowired
     private UserService userService;
 
-    @GetMapping()
-    public String userpage (@AuthenticationPrincipal Usr usr, Model model){
-        String username=usr.getUsername();
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
+
+    @Autowired
+    private TourRepository tourRepository;
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("user/{username}")
+    public String userInfoPage(@PathVariable String username, Model model, @AuthenticationPrincipal Usr usr,
+                             UserDetails userDetails) {
         model.addAttribute("username",username);
+        userDetails=userDetailsRepository.findUserDetailsByUsr(usr);
+        model.addAttribute("usrdet",userDetails);
+        UserDetails userDetails1=new UserDetails();
+        model.addAttribute("usrdet1",userDetails1);
+        model.addAttribute("newusername",usr.getUsername());
+        model.addAttribute("password",usr.getPassword());
+        model.addAttribute("newpassword",usr.getPassword());
+        List<Tour> tours=tourRepository.findTourByUsr(usr);
+        model.addAttribute("tours",tours);
         return "userpage";
     }
 
-    @GetMapping("{username}")
-    public String userInfoPage(@PathVariable String username,Model model){
-        return "userPrPage";
+    @PostMapping("addinfo")
+    public ModelAndView addUserDetails(@AuthenticationPrincipal Usr usr,
+                                 @ModelAttribute("usrdet1") @Valid UserDetails userDetails,BindingResult bindingResult) {
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("redirect:/user/"+usr.getUsername());
+        if(bindingResult.hasErrors()){
+            return mav;
+        }
+        userService.addPersonalInfo(usr.getId(),userDetails);
+        return mav;
     }
+
+    @PostMapping("changeusername")
+    public ModelAndView changeUsername(@AuthenticationPrincipal Usr usr,
+                                       @ModelAttribute("newusername") @Valid String newusername,
+                                       Model model) {
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("redirect:/user/"+usr.getUsername());
+        if(userRepo.findByUsername(newusername)!=null){
+            model.addAttribute("usernameerror",true);
+            return mav;
+        }
+        userService.updateUsername(newusername,usr.getId());
+        mav.setViewName("redirect:/user/"+newusername);
+        return mav;
+    }
+
+    @PostMapping("changepassword")
+    public ModelAndView changePassword(@AuthenticationPrincipal Usr usr, HttpServletRequest request,
+                                       RedirectAttributes redirectAttributes) {
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("redirect:/user/"+usr.getUsername());
+        String newpassword=request.getParameter("newpassword");
+        String oldpassword=request.getParameter("password");
+        if(newpassword.length()<8){
+            redirectAttributes.addFlashAttribute("passwordlength",true);
+            return mav;
+        }
+        if(!userService.updatePassword(oldpassword,newpassword,usr)){
+            redirectAttributes.addAttribute("passworderr",true);
+            return mav;
+        }
+        return mav;
+    }
+    
+    
 
 
 }
