@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TourService {
 
@@ -23,10 +25,12 @@ public class TourService {
         tourRepo.delete(deleteTour);
     }
 
-    public void UpdateTour(Tour tour){
-//        Tour updateTour=tourRepo.findTourByTourid(Id);
-//        updateTour.setTour(tour);
-        tourRepo.save(tour);
+    public void DeleteExpiredTour(List<Tour> tours){
+        for(int i=0;i<tours.size();i++){
+            if(!tours.get(i).isActive()){
+                tourRepo.delete(tours.get(i));
+            }
+        }
     }
 
 }
