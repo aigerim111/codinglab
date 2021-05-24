@@ -23,10 +23,30 @@ $(document).ready(function(){
 
 $('.dropdown-trigger').dropdown();
 
-// const login = $(".modal");
-// M.Modal.init(login,{
-//     opacity:0.7
-// });
+$(document).ready(function(){
+    $("#check").change(function(){
+        if($(this).is(':checked')){
+            $("#password").attr("type","text");
+        }else{
+            // Changing type attribute
+            $("#password").attr("type","password");
+        }
+    });
+});
+
+$(document).ready(function(){
+    $("#check1").change(function(){
+        if($(this).is(':checked')){
+            $("#newpassword").attr("type","text");
+        }else{
+            // Changing type attribute
+            $("#newpassword").attr("type","password");
+        }
+    });
+});
+$(document).ready(function(){
+    $('.collapsible').collapsible();
+});
 
 
 
