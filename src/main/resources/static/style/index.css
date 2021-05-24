@@ -25,6 +25,11 @@ body{
     box-shadow: none;
     padding-top: 20px;
 }
+.navigator1{
+    background-color: #284B63 !important;
+    box-shadow: none;
+}
+
 .navv{
     z-index : 100 !important;
     position: relative !important;
@@ -235,6 +240,52 @@ body{
     width:65%;
     font-weight: 700 !important;
 }
+
+.leftside{
+    color: #FDB784 !important;
+    letter-spacing: 0.15em !important;
+}
+
+.nd{
+    margin: 4%;
+    padding-bottom: 55px;
+}
+.nd p{
+    font-size: 1.3rem;
+}
+
+.rd{
+    background: rgb(68,65,65);
+    background: linear-gradient(90deg, rgba(68,65,65,0.9363095580028886) 41%, rgba(53,53,53,1) 93%);
+    padding: 2% 5%;
+}
+
+main .breadcrumb{
+    color: #FDB784 !important;
+}
+main .breadcrumb::before{
+    color: #FDB784 !important;
+
+}
+
+main .form1{
+    padding: 2% !important;
+}
+
+main .info h6{
+    line-height: 140% !important;
+}
+
+
+.form1 input[type=number]:focus {
+    border-bottom: #FDB784 !important;
+    box-shadow: #FDB784 !important;
+}
+
+main input{
+    color: white !important;
+}
+
 
 @media screen and (max-width: 768px ) {
     .carousel {
