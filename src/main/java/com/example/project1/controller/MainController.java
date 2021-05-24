@@ -29,6 +29,11 @@ public class MainController {
 
     @GetMapping("main")
     public String main(Model model,@AuthenticationPrincipal Usr usr){
+        List<Tour> tours=tourRepo.findAll();
+        for(int i=0;i<tours.size();i++){
+            tours.get(i).setActive();
+        }
+        tourService.DeleteExpiredTour(tours);
         model.addAttribute("usr",usr);
         return "index";
     }
@@ -54,5 +59,37 @@ public class MainController {
         model.addAttribute("current",page);
         model.addAttribute("option",option);
         return "tours";
+    }
+    
+    @GetMapping("tourpage/{tourid}")
+    public String tourDetails(Model model, @PathVariable(value="tourid") Long tourid,@AuthenticationPrincipal Usr usr){
+        model.addAttribute("usr",usr);
+        Tour selTour=tourRepo.findTourByTourid(tourid);
+        TourDetails tourDetails=tourDetailsRepository.findTourDetailsByTour(selTour);
+        model.addAttribute("tours",selTour);
+        model.addAttribute("tourdet",tourDetails);
+       return "tourpage";
+    }
+
+    @PostMapping("/booktour/{tourid}")
+    public String bookingTour(HttpServletRequest request, @AuthenticationPrincipal Usr usr, Model model,
+                              @PathVariable(value = "tourid") Long tourid
+                               ){
+        String date=request.getParameter("tourdate");
+        Integer numpeople=Integer.parseInt(request.getParameter("numpeople"));
+        Tour selTour=tourRepo.findTourByTourid(tourid);
+        TourDetails selTourDet=tourDetailsRepository.findTourDetailsByTour(selTour);
+        if(numpeople==selTourDet.getNumberofpeople()){
+            selTour.setnonActive();
+        }
+        if(numpeople>selTourDet.getNumberofpeople()){
+            model.addAttribute("numpeoplemax",true);
+            return "confirmBooking";
+        }
+        selTour.setUsr(usr);
+        tourRepo.save(selTour);
+        model.addAttribute("succesfullyadded",true);
+        model.addAttribute("usr",usr);
+        return "confirmBooking";
     }
 }
