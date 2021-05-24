@@ -1,9 +1,9 @@
 package com.example.project1.user.repos;
 
 import com.example.project1.tours.Tour;
+import com.example.project1.user.Usr;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
