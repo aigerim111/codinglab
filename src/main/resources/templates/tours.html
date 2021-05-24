@@ -133,6 +133,9 @@
                         <p  class="price right" th:text="${tours.price}"></p>
                     </div>
                 </div>
+                <div class="card-action">
+                    <a style="color:#F8964E !important; margin: 0px;  display: block; width: 100%; height: 100%;" th:href="@{'/tourpage/'+${tours.tourid}}">More information</a>
+                </div>
             </div>
         </div>
     </div>

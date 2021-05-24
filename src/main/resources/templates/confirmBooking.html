@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Kazakhi Tour</title>
+</head>
+<body>
+    <div th:if="${numpeoplemax}" class="red-text">We are sorry but the number of people has already reached the maximum.
+        Thank you for understanding.</div>
+    <div th:if="${successfullyadded}" class="green-text">You have booked a tour!</div>
+    <a th:href="@{'/user/'+${usr.getUsername}}">Personal page</a>
+</body>
+</html>

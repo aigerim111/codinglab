@@ -49,11 +49,6 @@
         <form class="col s12 update" th:action="@{/save}" method="POST" th:object="${tour}">
             <div class="row">
                 <div class="input-field col s12">
-                    <input placeholder="Tour id" type="number" name="address" required class="validate" th:field="*{tourid}">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
                     <input placeholder="Address" type="text" name="address" required class="validate" th:field="*{address}">
                 </div>
             </div>

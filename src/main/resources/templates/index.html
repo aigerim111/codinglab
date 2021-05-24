@@ -39,7 +39,7 @@
                     <li><a href="#contacts">Contacts</a></li>
                 </ul>
                 <ul id="nav-mobile" class="hide-on-med-and-down navbtns">
-                    li th:if="${usr==null}"><a class="waves-effect waves-light btn-small btnnav modal-trigger" href="/registration">Sign Up</a></li>
+                    <li th:if="${usr==null}"><a class="waves-effect waves-light btn-small btnnav modal-trigger" href="/registration">Sign Up</a></li>
                     <li th:if="${usr==null}"><a class="waves-effect waves-light btn-small btnnava modal-trigger" href="/login">Login</a></li>
                     <li th:if="${usr!=null}"><a class='dropdown-trigger' data-target='dropdown1' th:text="${usr.getUsername()}"></a></li>
                     <ul id='dropdown1' class='dropdown-content' th:if="${usr!=null}">
