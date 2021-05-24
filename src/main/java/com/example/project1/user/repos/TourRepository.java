@@ -15,4 +15,6 @@ public interface TourRepository extends JpaRepository<Tour,Long> {
     Page<Tour> findAll(Pageable pageable);
     Tour findTourByTourid(Long Id);
     List<Tour> findAll();
+    List<Tour> findTourByUsr(Usr usr);
+
 }
