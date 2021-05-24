@@ -30,6 +30,9 @@ public class Tour {
 
     @Column(nullable = false,name = "price")
     private Integer price;
+    
+    @Column(nullable = false)
+    private boolean isActive=false;
 
     @ManyToMany
     @JoinColumn(
@@ -100,8 +103,10 @@ public class Tour {
         this.address = address;
     }
 
-    public void setTourdate(Date tourdate) {
-        this.tourdate = tourdate;
+    public void setTourdate(String tourdate) throws ParseException {
+        SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");
+        Date d = sdformat.parse(tourdate);
+        this.tourdate = d;
     }
 
     public void setPrice(Integer price) {
@@ -112,8 +117,8 @@ public class Tour {
         return usr;
     }
 
-    public void setUsr(List<Usr> usr) {
-        this.usr = usr;
+    public void setUsr(Usr usr) {
+        this.usr.add(usr);
     }
 
     public String getImage() {
@@ -130,5 +135,24 @@ public class Tour {
 
     public void setTourduration(String tourduration) {
         this.tourduration = tourduration;
+    }
+    
+    public void setActive() {
+        SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");
+        Date now=new Date();
+        if(this.tourdate.compareTo(now)<0 || this.tourdate.compareTo(now)==0 ){
+            this.isActive=false;
+        }
+        else if(this.tourdate.compareTo(now)>0){
+            this.isActive=true;
+        }
+    }
+
+    public void setnonActive(){
+        this.isActive=false;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 }
