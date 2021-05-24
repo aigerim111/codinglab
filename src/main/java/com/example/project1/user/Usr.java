@@ -20,6 +20,7 @@ public class Usr implements UserDetails {
     private Long id;
 
     @NotNull
+    @Size(min=2,max=16)
     private String username;
 
     @NotNull
