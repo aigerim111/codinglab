@@ -1,16 +1,14 @@
 package com.example.project1.user;
 
-import com.example.project1.tours.Tour;
 import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table// This tells Hibernate to make a table out of this class
