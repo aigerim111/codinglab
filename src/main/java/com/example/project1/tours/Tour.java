@@ -4,11 +4,11 @@ import com.example.project1.user.Usr;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.example.project1.user.Usr;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
