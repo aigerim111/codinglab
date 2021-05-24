@@ -6,22 +6,18 @@ import com.example.project1.user.config.emailToken.ConfirmationToken;
 import com.example.project1.user.config.emailToken.EmailToken;
 import com.example.project1.user.config.emailToken.emailSender.EmailSender;
 import com.example.project1.user.repos.UserRepository;
+import com.example.project1.user.repos.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-import java.util.Collections;
-import java.util.Optional;
-
 @Service
-public class UserService implements UserDetailsService { //Содержит методы для бизнес-логики
+public class UserService implements UserDetailsService { 
 
     @Autowired
     private UserRepository userRepository;
@@ -35,6 +31,9 @@ public class UserService implements UserDetailsService { //Содержит ме
 
     @Autowired
     private EmailSender emailSender;
+    
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
 
 
     private final static String USER_NOT_FOUND_MSG =
@@ -88,6 +87,27 @@ public class UserService implements UserDetailsService { //Содержит ме
 
     public void deleteusr(Usr usr){
         userRepository.delete(usr);
+    }
+    
+    public void addPersonalInfo(Long id, com.example.project1.user.UserDetails userDetails){
+        userDetails.setUsr(userRepository.findUsrById(id));
+        userDetailsRepository.save(userDetails);
+    }
+
+    public void updateUsername(String username,Long id){
+        userRepository.updateUsername(username,id);
+    }
+
+    public boolean updatePassword(String oldPassword,String newPassword,Usr usr){
+        if(!(passwordEncoder.matches(oldPassword,usr.getPassword()))){
+            return false;
+        }
+        if(oldPassword==newPassword){
+            return false;
+        }
+        usr.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(usr);
+        return true;
     }
 
 
