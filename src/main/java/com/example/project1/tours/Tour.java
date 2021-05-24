@@ -25,7 +25,7 @@ public class Tour {
     private String address;
 
     @Column(nullable = false,name = "tourdate")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date tourdate;
 
     @Column(nullable = false,name = "price")
