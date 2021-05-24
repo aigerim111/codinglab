@@ -16,13 +16,11 @@ $(document).ready(function(){
 
 $('.dropdown-trigger').dropdown();
 
-// $('#pagination-long').materializePagination({
-//     align: 'right',
-//     lastPage: 5,
-//     firstPage: 1,
-//     useUrlParameter: true,
-//     onClickCallback: function(requestedPage) {
-//         console.log('Requested page from #pagination-long: ' + requestedPage);
-//     }
-// });
+$(document).ready(function(){
+    $('.parallax').parallax();
+});
+
+$(document).ready(function(){
+    $('select').formSelect();
+});
 
