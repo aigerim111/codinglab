@@ -2,12 +2,9 @@ package com.example.project1.controller;
 
 
 import com.example.project1.tours.Tour;
-import com.example.project1.user.Role;
 import com.example.project1.user.repos.TourRepository;
 import com.example.project1.user.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
